@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        section{border:1px solid blue;margin-bottom:10px;}
+        p{margin:0;}
+        footer{border:1px solid red;}
+        img{float:left;}
+/*        section{overflow: hidden;}*/
+        /*先设定宽度再浮动，要不然会收缩包裹*/
+        section{width:100%;float:left;}
+        footer{clear:left;}
+    </style>
+</head>
+<body>
+    <section>
+        <img src='rubber_duck3.jpg' alt='duck'>
+        <p>It's fun to float.</p>
+    </section>
+    <footer>
+        Here is the footer element that runs across the bottom of the page.
+    </footer>
+</body>
+</html>

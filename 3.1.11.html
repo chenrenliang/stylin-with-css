@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        section{border:1px solid red; width:300px;}
+        img{float:left;margin:0 4px 4px 0;width:80px;}
+        p{font-family: "microsoft yahei";font-size: 1em;}
+/*        img{clear:both;}*/
+        .clearfix:after{
+            content:".";
+            display: block;
+            height:0;
+            visibility: hidden;
+            clear:both;
+        }
+        
+    </style>
+</head>
+<body>
+    <section>
+        <img src='rubber_duck3.jpg' alt='duck3'>
+        <p class='clearfix'>This text sits next to the image and because the text extends below the bottom of the image, the next image positions itself correctly under the previous image.</p>
+        <img src='beach_ball.jpg' alt='ball'>
+        <p class='clearfix'>This text is short, so the next image can float up beside this one.</p>
+        <img src='yellow_float.jpg' alt='yellow'>
+        <p class="clearfix">Because the previous image's text does not extend below it, this image and text move up next to the previous image. This problem can be solved by the use of the clear property.</p>
+    </section>
+</body>
+</html>

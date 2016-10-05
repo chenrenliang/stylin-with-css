@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div#outer{border:1px solid red;border-top:3px solid red;width:250px;margin:50px 40px;}
+        div#inner{background:#ccc;top:10px;left:20px;}
+/*        div#inner{position: absolute;}*/
+        div#outer{position: relative;}
+        div#inner{position: absolute;}
+        div#outer{left:10px;top:30px;}
+    
+    
+    </style>
+</head>
+<body>
+    <div id='outer'>
+        <div id='inner'>This is text for a paragraph to demonstrate contextual positioning. Here are two divs, one nested in the other. The inner div now has absolute positioning, so it positions itself relative to the default positioning context, body.</div>
+    </div>
+</body>
+</html>

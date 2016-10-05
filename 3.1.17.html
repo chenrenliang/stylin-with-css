@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        P{
+            font-size:14px;font-family: helvetica,arial,sans-serif;border:2px solid #aaa;
+            width:384px;height:40px;margin:20px auto;
+            padding:10px;color:#000;
+            background-color:#fff;
+            background-image:url(blue_circle.png);
+        }
+        .repeat-x{background-repeat:repeat-x;}
+        .repeat-y{background-repeat:repeat-y;}
+        .no-repeat{background-repeat:no-repeat;}
+/*        .repeat{background-repeat: round;}*/
+        .repeat{background-repeat:space;}
+    </style>
+</head>
+<body>
+      <p class='repeat'>
+    	<code>background-repeat:repeat</code> 
+        <br/>The image tiles across and down the background area.
+    </p>
+    <p class='repeat-x'>
+    	<code>background-repeat:repeat-x</code> <br/>The image tiles across the background area.
+    </p>
+    <p class='repeat-y'>
+    	<code>background-repeat:repeat-y</code> <br/>The image tiles down the background area.
+    </p>
+    <p class='no-repeat'>
+    	<code>background-repeat:no-repeat</code> <br/>The image displays once only.
+    </p>
+</body>
+</html>

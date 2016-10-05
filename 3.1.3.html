@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body{font-family: helvetica,arial,sans-serif;font-size:1em;background-color:#caebff;}
+        .withBorder p,.withBorder h2{border:1px solid red;}
+        .withoutMargin p,.withoutMargin h2{margin:0;border:1px solid blue;}
+        
+    </style>
+</head>
+<body>
+    <div class='box'>
+        <h2>Margin Demo</h2>
+        <p>No styles are applied to either of these paragraphs.</p>
+        <p>However,there is clearly space between them.</p>
+    </div>
+    <div class='withBorder'>
+        <h2>Margin Demo-with borders turned on</h2>
+        <p>This is the same arrangement of a heading and two paragraphs but now the borders are visible, and you can see how the default margins create space between the elements.</p>
+        <p>Margins push an element away from elements it would otherwise touch.</p>
+    </div>
+    
+    <div class='withoutMargin'>
+        <h2>Margin Demo—borders on, but without margins</h2>
+        <p>Here the margins are set to 0 (zero), so the elements' borders now touch.</p>
+        <p>Be aware that almost every element has margins by default, and you will often want to eliminate or adjust the default margin settings to get the effect you want.</p>
+    </div>
+</body>
+</html>

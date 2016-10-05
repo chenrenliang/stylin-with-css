@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        p{font-size:14px;font-family: helvetica,arial,sans-serif;width:348px;height:40px;margin:20px auto;
+            padding:10px;color:#000;border:2px solid #aaa;background:#fff;
+            background-image:url(clouds.jpg);background-repeat: no-repeat;background-position:center;
+        }
+        p#percent{background-size:50%;}
+        p#pixels{background-size:100px 50px;}
+        p#cover{background-size:cover;}
+        p#contain{background-size:contain;}
+    
+    </style>
+</head>
+<body>
+       <p id="percent">
+    	<code>background-size:50%</code><br />The image fills 50% of the element.
+    </p>
+    <p id="pixels">
+    	<code>background-size:100px 50px</code><br />The image is sized to the specified dimensions.
+    </p>
+    <p id="cover">
+    	<code>background-size:cover</code><br />The image is enlarged to fill the element.
+    </p>
+    <p id="contain">
+    	<code>background-size:contain</code><br />The image is sized to fit inside the element.
+    </p>
+</body>
+</html>
