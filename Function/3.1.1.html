@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <script>
+            var square=function(x){
+                return x*x;
+            };
+            console.log(square(12));
+
+            var makeNoise=function(){
+                console.log("Pling!");
+            };
+            makeNoise();
+
+            var power=function(base,exponent){
+                var result=1;
+                for(var count=0;count<exponent;count++){
+                    result*=base;
+                }
+                return result;
+            };
+
+            console.log(power(2,10));
+
+            var x="outside";
+            var f1=function(){
+                var x="inside f1";
+            };
+            f1();
+            console.log(x);//outside
+
+            var f2=function(){
+                x="inside f2";
+            };
+            f2();
+            console.log(x);//inside f2
+
+            var landscape=function(){
+                var result="";
+                var flat=function(size){
+                    for(var count=0;count<size;count++){//添加size个_
+                        result+="_";
+                    }
+                };
+                var mountain=function(size){//result=/'(size)\\->/'(size)\
+                    result+="/";
+                    for(var count=0;count<size;count++){
+                        result+="'";
+                    }
+                    result+="\\";
+                };
+                flat(3);//___
+                mountain(4);//___/''''\
+                flat(6);//___/''''\______
+                mountain(1);//___/''''\______/'\
+                flat(1);//___/''''\______/'\_
+                return result;
+            };
+
+            console.log(landscape());
+
+            console.log("The future says:",future());
+
+            function future(){
+                return "We STILL have no flying cars.";
+            }
+
+            function greet(who){
+                console.log("Hello "+who);
+            }
+            greet("Harry");
+            console.log('Bye');
+
+        </script>
+</body>
+</html>
