@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="journal.js"></script>
+</head>
+<body>
+            <script>
+                var mack=[];
+                mack.push("Mack");//1
+                mack.push("the","Knife");//3
+                console.log(mack);
+                console.log(mack.join(" "));
+                console.log(mack.pop());
+                console.log(mack);
+
+                var day1={
+                    squirrel:false,
+                    events:["work","touched tree","pizza","running","television"]
+                };
+                console.log(day1.wolf);
+                day1.wolf=true;
+                console.log(day1.wolf);
+
+                var descriptions={
+                    work:"Went to work",
+                    "touched tree":"Touched a  tree"
+                };
+
+                var journal=[];
+                function addEntry(events,didITurnIntoASquirrel){
+                    journal.push({
+                        events:events,
+                        squirrel:didITurnIntoASquirrel
+                    });
+                }
+
+                addEntry(["work","touched tree","pizza","running","television"],false);
+                addEntry(["work","ice cream","cauliflower","lasagna","touched tree","brushed teeth"],false);
+                console.log(journal);
+
+                function phi(table){//对数组中四个值进行计算
+                    return (table[3]*table[0]-table[2]*table[1])/
+                                    Math.sqrt((table[2]+table[3])*(table[0]+table[1])*(table[1]+table[3])*(table[0]+table[2]));
+                }
+
+                console.log(phi([76,9,4,1]));
+
+                function hasEvent(event,entry){//entry可以代表journal中一行
+                    return entry.events.indexOf(event) !=-1;//说明存在
+                }
+
+                function tableFor(event,journal){
+                    var table=[0,0,0,0];
+                    for(var i=0;i<journal.length;i++){//entry代表数组中的一个，即一行
+                        var entry=journal[i],index=0;
+                        if(hasEvent(event,entry)){//该事件在某一行中存在
+                            index+=1;
+                        }
+                        if(entry.squirrel){//变成狼人发生了
+                            index+=2;
+                        }
+                        table[index]=table[index]+1;
+                    }
+                    return table;
+                }
+
+
+                console.log(tableFor("pizza",JOURNAL));
+
+                var map={};
+                function storePhi(event,phi){
+                    map[event]=phi;
+                }
+                storePhi("pizza",0.069);
+                storePhi("touched tree",-0.081);
+                console.log("pizza" in map);
+                console.log(map["touched tree"]);
+
+                for(var event in map){
+                    console.log("The correlation for '"+event+"' is "+map[event]);
+                }
+
+
+                function gatherCorrelations(journal){//收集相关系数
+                    var phis={};//容器
+                    for(var entry=0;entry<journal.length;entry++){//entry数组中的每一个
+                        var events=journal[entry].events;
+                        for(var i=0;i<events.length;i++){
+                            var event=events[i];
+                            if(! (event in phis)){//若事件不在容器中，则添加
+                                phis[event]=phi(tableFor(event,journal));
+                            }
+                        }
+                    }
+                    return phis;
+
+                }
+
+                var correlations=gatherCorrelations(JOURNAL);
+                console.log(correlations.pizza);
+
+                for(var event in correlations){
+                    console.log(event+": "+correlations[event]);
+                }
+
+                for(var event in correlations){
+                    var correlation=correlations[event];
+                    if(correlation>0.1 || correlation< -0.1){
+                        console.log(event+": "+correlation);
+                    }
+                }
+
+                for(var i=0;i<JOURNAL.length;i++){
+                    var  entry=JOURNAL[i];
+                    if(hasEvent("peanuts",entry) && ! hasEvent("brushed teeth",entry)){
+                        entry.events.push("peanut teeth");//有peanuts 无brushed teeth
+                    }
+                }
+                console.log(phi(tableFor("peanut teeth",JOURNAL)));
+
+                var todoList=[];
+                function rememberTo(task){
+                    todoList.push(task);
+                }
+
+                function whatIsNext(){
+                    return todoList.shift();
+                }
+
+                function urgentlyRememberTo(task){
+                    todoList.unshift(task);
+                }
+
+                rememberTo(1);
+                rememberTo(2);
+                console.log(todoList);
+                console.log(whatIsNext());
+                urgentlyRememberTo(3);
+                console.log(todoList);
+
+                console.log([1,2,3,2,1].indexOf(2));//1
+                console.log([1,2,3,2,1].lastIndexOf(2));//3
+                console.log([0,1,2,3,4].slice(2,4));//2 3
+                console.log([0,1,2,3,4].slice(2));//2 3 4
+
+
+                function remove(array,index){
+                    return array.slice(0,index).concat(array.slice(index+1));
+                }
+
+                console.log(remove(["a","b","c","d","e"],2));
+
+                console.log("coconuts".slice(4,7));//nut
+                console.log("coconut".indexOf('u'));//5
+
+                console.log("one two three".indexOf("ee"));
+                console.log("  okay  \n".trim());
+
+                var string="abc";
+                console.log(string.length);
+                console.log(string.charAt(0));
+                console.log(string[1]);
+
+                function addEntry(squirrel){
+                    var entry={events:[],squirrel:squirrel};
+                    for(var i=1;i<arguments.length;i++){
+                        entry.events.push(arguments[i]);
+                    }
+                    journal.push(entry);
+                }
+
+                addEntry(true,"work","touched tree","pizza","running","television");
+
+                function randomPointOnCircle(radius){
+                   var angle=2*Math.PI*Math.random();
+                    return {
+                        x:radius*Math.cos(angle),
+                        y:radius*Math.sin(angle)
+                    }
+                }
+
+                console.log(randomPointOnCircle(2));
+
+
+            </script>
+</body>
+</html>
