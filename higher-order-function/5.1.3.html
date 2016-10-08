@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="ancestry.js"></script>
+</head>
+<body>
+            <script>
+                //数组降维:遍历二维中的元素项，再在里面再遍历一维忠的元素项
+                var  arr=[[1,2,3,4],[5,6,7,8]];//->[1,2,3,4,5,6,7,8];
+           /*
+            function reduceDimension(arr){
+            var reduced=[];
+            for(var i=0;i<arr.length;i++){
+            reduced=reduced.concat(arr[i]);
+            }
+            return reduced;
+            }
+            */
+
+             /*
+              function reduceDimension(arr){
+              return Array.prototype.concat.apply([],arr);
+              }
+              */
+
+
+                console.log(arr.reduce(function(flat,current){//previousValue, currentValue,（index, array）省略
+                    return flat.concat(current);
+                    //1          [].concat([1,2,3,4])->[1,2,3,4]
+                    //2          [1,2,3,4].concat([5,6,7,8])->[1,2,3,4,5,6,7,8]
+                },[]));
+
+                function average(array){
+                    function plus(a,b){return a+b;}
+                    return   array.reduce(plus)/array.length;
+                }
+
+                var  byName={};
+
+                var  ancestry=JSON.parse(ANCESTRY_FILE);//对象->数组
+                ancestry.forEach(function(person){
+                   byName[person.name]=person;
+                });
+
+              var differences=ancestry.filter(function(person){
+                  return byName[person.mother] !=null;
+              }).map(function(person){
+                 return  person.born-byName[person.mother].born;
+              });
+
+                console.log(average(differences));
+
+                function groupBy(array,groupOf){
+                    var groups={};
+                    array.forEach(function(element){
+                       var groupName=groupOf(element);
+                        if(groupName in groups){
+                            groups[groupName].push(element);
+                        }else{
+                            groups[groupName]=[element];
+                        }
+                    });
+                    return groups;
+                }
+
+                var byCentury=groupBy(ancestry,function(person){
+                   return Math.ceil(person.died/100);
+                });
+
+                for(var century in byCentury){
+                    var ages=byCentury[century].map(function(person){
+                        return person.died-person.born;
+                    });
+                    console.log(century+": "+average(ages));
+                }
+
+
+
+
+
+
+                function every(array,predicate){
+                    for(var i=0;i<array.length;i++){
+                        if(! predicate(array[i])){
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+
+
+                function some(array,predicate){
+                    for(var i=0;i<array.length;i++){
+                        if(predicate(array[i]))return true;
+                    }
+                    return false;
+                }
+
+                console.log(every([NaN,NaN,NaN],isNaN));
+
+                console.log(every([NaN,NaN,4],isNaN));
+
+                console.log(some([NaN,3,4],isNaN));
+
+                console.log(some([2,3,4],isNaN));
+
+
+
+
+
+
+
+
+
+
+
+
+            </script>
+</body>
+</html>
