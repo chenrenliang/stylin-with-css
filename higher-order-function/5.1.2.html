@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="ancestry.js"></script>
+</head>
+<body>
+            <script>
+                var ancestry=JSON.parse(ANCESTRY_FILE);
+
+                console.log(ancestry.filter(function(person){
+                    return person.father =="Carel Haverbeke";
+                }));
+
+                console.log(ancestry.reduce(function(min,cur){
+                    return cur.born<min.born?cur:min;
+                }));
+
+                var min=ancestry[0];
+                for(var i=1;i<ancestry.length;i++){
+                    var cur=ancestry[i];
+                    if(cur.born<min.born){
+                        min=cur;
+                    }
+                }
+                console.log(min);
+
+                function average(array){
+                    function plus(a,b){return a+b;}
+                    return array.reduce(plus)/array.length;
+                }
+
+                function age(p){return  p.died-p.born;}
+                function male(p){return p.sex=='m';}
+                function female(p){return p.sex=='f';}
+
+                console.log(average(ancestry.filter(male).map(age)));
+                console.log(average(ancestry.filter(female).map(age)));
+                console.log(average(ancestry.map(age)));
+
+
+                var  theSet=["Carel Haverbeke","Maria van Brussel","Donald Duck"];
+                function isInSet(set,person){//set为集合(数组),person为单个
+                    return set.indexOf(person.name)>-1;
+                }
+                console.log(ancestry.filter(function(person){//过滤器 满足isInSet
+                        return isInSet(theSet,person);
+                }));
+
+                console.log(ancestry.filter(isInSet.bind(null,theSet)));
+                //对每一个person绑定一个isInSet
+
+
+
+            </script>
+</body>
+</html>

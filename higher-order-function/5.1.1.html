@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="journal.js"></script>
+    <script src="ancestry.js"></script>
+</head>
+<body>
+            <script>
+            /*
+             var total=0,count=1;
+             while(count<=10){
+             total+=count;
+             count++;
+             }
+             console.log(total);
+             */
+
+                /*
+                 var array=[1,2,3];
+                 for(var i=0;i<array.length;i++){
+                 var element=array[i];
+                 console.log(element);
+                 }
+
+                 */
+
+                function logEach(array){
+                    for(var i=0;i<array.length;i++){
+                        console.log(array[i]);
+                    }
+                }
+
+                logEach(["did",'I','not','work','hard',"?"]);
+
+                function forEach(array,action){
+                    for(var i=0;i<array.length;i++){
+                        action(array[i]);
+                    }
+                }
+
+                forEach(["W","E","L","C","O","M","E"],console.log);
+                var numbers=[1,2,3,4,5],sum=0;
+                forEach(numbers,function(number){
+                    sum+=number;
+//                    return sum;
+                });
+                console.log(sum);
+
+                var journal=JOURNAL;
+          /*
+           function gatherCorrelations(journal){
+           var phis={};
+           for(var entry=0;entry<journal.length;entry++){
+           var events=journal[entry].events;
+           for(var i=0;i<events.length;i++){
+           var event=events[i];
+           if(! (event in phis)){
+           phis[event]=phi(tableFor(event,journal));
+           }
+           }
+           }
+           return phis;
+           }
+           */
+            var journal=JOURNAL;
+          function gatherCorrelations(journal){
+            var phis={};
+            journal.forEach(function(events){
+                events.events.forEach(function(event){
+                    if(! (event in phis)){
+                        phis[event]=phi(tableFor(event,journal));
+                    }
+                });
+            });
+              return phis;
+          }
+
+               var correlations= gatherCorrelations(journal);
+                for(var event in  correlations){
+                    console.log(event+": "+correlations[event]);
+                }
+
+                function phi(table){
+                    return (table[3]*table[0]-table[2]*table[1])/
+                            (Math.sqrt((table[2]+table[3])*
+                                    (table[0]+table[1])*
+                                    (table[1]+table[3])*
+                                    (table[0]+table[2])
+                            ));
+                }
+
+                function hasEvent(event,entry){
+                    return entry.events.indexOf(event) !=-1;
+                }
+
+                function tableFor(event,journal){
+                    var table=[0,0,0,0];
+                    for(var i=0;i<journal.length;i++){
+                        var entry=journal[i],index=0;
+                        if( hasEvent(event,entry))index+=1;
+                        if(entry.squirrel)index+=2;
+                        table[index]+=1;
+                    }
+                    return table;
+                }
+
+                function greaterThan(n){//和n比较大小
+                    return function(m){return m>n;}
+                }
+
+                var greaterThan10=greaterThan(10);
+                console.log(greaterThan10(11));
+
+               function noisy(f){
+                   return  function(arg){
+                       console.log(arg);
+                       var val=f(arg);//外层传入的函数对内层传入的参数进行改造
+                       console.log(arg,val);
+                       return val;
+                   };
+               }
+
+               var  makeNoise=noisy(Boolean);//function(arg){ var val=Boolean(arg);}
+                console.log(makeNoise(0));//0 0,false  false
+                console.log(makeNoise(1));//1 1,true true
+
+                noisy(Boolean)(-1);
+                //-1 -1,true
+
+                function unless(test,then){//未通过test->then()
+                    if(!test) then();
+                }
+
+                function repeat(times,body){//重复times，每次的参数用i
+                    for(var i=0;i<times;i++){
+                        body(i);
+                    }
+                }
+
+                repeat(3,function(n){//这个function(n)相当于body(i)
+                    unless(n%2,function(){//整除就是不通过:0 2
+                    console.log(n,"is even");
+                    });
+                });
+
+                function transparentWrapping(f){//把子级传入的参数传入到父级的f函数
+                    return function(){
+                        return f.apply(null,arguments);
+                    };
+                }
+
+               //JSON
+                [
+                    {
+                        "name":"Emma de Milliano","sex":"f","born":1876,"died":1956,
+                        "father":"Petrus de Milliano","mother":"Sophia van Damme"
+                    },
+                    {
+                        "name":"Carolus Haverbeke","sex":"m","born":1832,"died":1905,
+                        "father":"Carel Haverbeke","mother":"Maria van Brussel"
+                    }
+                ]
+
+
+            var  string=JSON.stringify({name:"X",born:1980});//对象序列化
+                console.log(string);
+
+                console.log(JSON.parse(string));
+                console.log(JSON.parse(string).born);
+
+                var  ancestry=JSON.parse(ANCESTRY_FILE);
+                console.log(ancestry);
+                console.log(ancestry.length);
+
+                function  filter(array,test){
+                    var passed=[];
+                    for(var i=0;i<array.length;i++){
+                        if(test(array[i])){
+                            passed.push(array[i]);
+                        }
+                    }
+                    return passed;
+                }
+
+                console.log(filter(ancestry,function(person){//function扮演test()的角色
+                    return person.born>1900 && person.born<1925;
+                }));
+
+
+                function map(array,transform){
+                    var mapped=[];
+                    for(var i=0;i<array.length;i++){
+                        mapped.push(transform(array[i]));
+                    }
+                    return mapped;
+                }
+
+                var overNinety=ancestry.filter(function(person){//内置Array方法
+                    return (person.died-person.born)>90;
+                });
+
+                console.log(map(overNinety,function(person){//function->用作tranform的任务
+                        //这个tranform就是对传入一个person,传出一个person.age,放入mapped中，再返回
+                    return person.name;
+                }));
+
+
+                function reduce(array,combine,start){
+                    var current=start;//初始值
+                    for(var i=0;i<array.length;i++){//每次循环都把仓库的与数组中新的，一起归并，再放回仓库
+                        current=combine(current,array[i]);
+                    }
+                    return current;
+                }
+
+                console.log(reduce([1,2,3,4],function(a,b){//扮演combine函数:a->current,b->array[i]
+                        return a+b;//0+1->1:1+2->3:3+3->6:6+4->10
+                },0));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </script>
+</body>
+</html>
