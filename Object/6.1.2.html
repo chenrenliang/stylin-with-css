@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+            <script>
+                function Rabbit(type){
+                    this.type=type;
+                }
+
+                var killerRabbit=new Rabbit("killer");
+                var blackRabbit=new Rabbit("black");
+                console.log(blackRabbit.type);
+
+                Rabbit.prototype.speak=function(line){
+                    console.log("The "+this.type+" rabbit says '"+line+"'");
+                };
+
+                blackRabbit.speak("Doom...");
+
+                Rabbit.prototype.teeth="small";
+                console.log(killerRabbit.teeth);//small
+
+                killerRabbit.teeth='long, sharp, and bloody';
+                console.log(killerRabbit.teeth);//long,sharp,and bloody
+
+                console.log(blackRabbit.teeth);//small
+                console.log(Rabbit.prototype.teeth);//small
+
+                console.log(Array.prototype.toString== Object.prototype.toString);//false
+
+                console.log([1,2].toString());//'1,2'
+
+                console.log(Object.prototype.toString.call([1,2]));//'[object Array]'
+
+                Rabbit.prototype.dance=function(){
+                    console.log("The "+this.type+" rabbit dances a jig.");
+                };
+
+                killerRabbit.dance();
+
+                var map={};
+                function storePhi(event,phi){
+                    map[event]=phi;
+                }
+
+                storePhi("pizza",0.069);
+                storePhi("touched tree",-0.081);
+                for(var event in map){
+                    console.log(event+":"+map[event]);
+                }
+
+                Object.prototype.nonsense="hi";
+                for(var name in map){
+                    console.log(name);
+                }
+
+                console.log("nonsense" in map);//true
+
+                console.log("toString" in map);//true
+
+                delete Object.prototype.nonsense;
+                console.log("nonsense" in map);//false
+
+                Object.defineProperty(Object.prototype,"hiddenNonsense",{
+                    value:"hi",
+                    enumberable:false
+                });
+
+                for(var name in map){//hiddenNonsense不可枚举
+                    console.log(name);
+                }
+                console.log(map.hiddenNonsense);//hi
+
+                console.log(map.hasOwnProperty("hiddenNonsense"));//false  原型链上的
+
+                console.log(map.hasOwnProperty("toString"));//false
+
+                for(var name in map){
+                    if(map.hasOwnProperty(name)){
+                        console.log(name+": "+map[name]);
+                    }
+                }
+
+
+
+
+
+
+
+            </script>
+</body>
+</html>
