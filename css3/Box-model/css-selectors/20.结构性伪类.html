@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        p{height:30px;border:1px solid #000;}
+        p:empty{background:red;}
+        span{display: block;height:20px;}
+        p *:only-of-type{background:yellow;}
+        p *:only-child{background:blue;}
+    
+    
+    </style>
+</head>
+<body>
+    <p></p>
+    <h1>h1</h1>
+    <p>p2</p>
+    <h1>h2</h1>
+    <p><span></span></p>
+    <h1>h3</h1>
+    <p>
+        <span></span>
+        <a href='#'>链接</a>
+    </p>
+    <p>p5</p>
+</body>
+</html>
